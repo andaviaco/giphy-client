@@ -9,8 +9,19 @@ import {
   Text,
   SimpleGrid,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { fetchGifs } from '../api/GifAPI';
 
 export function GiftPage() {
+  useEffect(() => {
+    fetchGifs({ q: 'cute panda' }).then((results) => {
+      console.log(
+        '🚀 ~ file: GiftsPage.tsx ~ line 19 ~ fetchGifs ~ results',
+        results,
+      );
+    });
+  }, []);
+
   return (
     <Container width="100%" maxWidth="1200px" padding="0 4" alignItems="center">
       <Flex direction="column" align="center" marginBottom="8">
