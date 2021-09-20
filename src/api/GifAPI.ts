@@ -6,7 +6,23 @@ interface FetchGifsParams {
   q?: string;
 }
 
-export async function fetchGifs(params: FetchGifsParams = {}) {
+type GifImage = {
+  url: string;
+};
+
+type GifImages = {
+  downsized_still: GifImage;
+  fixed_height_still: GifImage;
+};
+
+export type Gif = {
+  id: string;
+  images: GifImages;
+};
+
+export async function fetchGifs(
+  params: FetchGifsParams = {},
+): Promise<Array<Gif>> {
   const urlParams = new URLSearchParams({
     api_key: GIFS_API_KEY,
     limit: 10,
