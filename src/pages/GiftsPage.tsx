@@ -5,16 +5,20 @@ import {
   Flex,
   Heading,
   HStack,
+  Image,
   Input,
   Text,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { fetchGifs } from '../api/GifAPI';
+import { useEffect, useState } from 'react';
+import { fetchGifs, Gif } from '../api/GifAPI';
 
 export function GiftPage() {
+  const [gifs, setGifs] = useState<Array<Gif>>([]);
+
   useEffect(() => {
     fetchGifs({ q: 'cute panda' }).then((results) => {
+      setGifs(results);
       console.log(
         '🚀 ~ file: GiftsPage.tsx ~ line 19 ~ fetchGifs ~ results',
         results,
@@ -42,13 +46,17 @@ export function GiftPage() {
         </form>
       </Flex>
 
-      <SimpleGrid minChildWidth="120px" spacing="40px">
-        <Box bg="purple.600" height="80px"></Box>
-        <Box bg="purple.600" height="80px"></Box>
-        <Box bg="purple.600" height="80px"></Box>
-        <Box bg="purple.600" height="80px"></Box>
-        <Box bg="purple.600" height="80px"></Box>
-        <Box bg="purple.600" height="80px"></Box>
+      <SimpleGrid minChildWidth="100px" spacing="40px">
+        {gifs.map((gif) => (
+          <Box key={gif.id} bg="purple.600" align="center">
+            <Image
+              boxSize="100px"
+              objectFit="cover"
+              src={gif.images.fixed_height_still.url}
+              alt="TODO"
+            />
+          </Box>
+        ))}
       </SimpleGrid>
     </Container>
   );
