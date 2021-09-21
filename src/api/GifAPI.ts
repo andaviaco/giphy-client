@@ -1,6 +1,6 @@
 // TODO: get value from env
-const GIFS_API_URL = 'https://api.giphy.com/v1';
-const GIFS_API_KEY = '...';
+const GIFS_API_URL = process.env.REACT_APP_GIFS_API_URL;
+const GIFS_API_KEY = process.env.REACT_APP_GIFS_API_KEY;
 
 interface FetchGifsParams {
   q?: string;
