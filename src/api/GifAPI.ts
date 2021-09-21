@@ -17,6 +17,7 @@ type GifImages = {
 
 export type Gif = {
   id: string;
+  title: string;
   images: GifImages;
 };
 
