@@ -15,14 +15,20 @@ export function Modal({
   isOpen = false,
   title = 'Title',
   onClose = () => null,
+  children,
 }: any) {
   return (
-    <ChakraModal size="xl" isOpen={isOpen} onClose={onClose}>
+    <ChakraModal
+      size="xl"
+      isOpen={isOpen}
+      onClose={onClose}
+      scrollBehavior="inside"
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>Test</ModalBody>
+        <ModalBody>{children}</ModalBody>
         <ModalFooter>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>

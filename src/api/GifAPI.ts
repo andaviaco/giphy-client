@@ -6,13 +6,18 @@ interface FetchGifsParams {
   q?: string;
 }
 
-type GifImage = {
+export type GifImage = {
   url: string;
+  webp: string;
+  mp4: string;
 };
 
-type GifImages = {
+export type GifImages = {
   downsized_still: GifImage;
   fixed_height_still: GifImage;
+  original: GifImage;
+  fixed_height: GifImage;
+  fixed_width: GifImage;
 };
 
 export type Gif = {
