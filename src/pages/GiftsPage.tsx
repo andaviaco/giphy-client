@@ -20,6 +20,7 @@ export function GiftPage() {
   const [gifs, setGifs] = useState<Array<Gif>>([]);
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetchGifs({ q: 'cute panda' }).then((results) => {
@@ -40,6 +41,20 @@ export function GiftPage() {
     setIsModalOpen(false);
   }
 
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+
+    setSearch(value);
+  }
+
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    fetchGifs({ q: search }).then((results) => {
+      setGifs(results);
+    });
+  }
+
   return (
     <Container width="100%" maxWidth="1200px" padding="0 4" alignItems="center">
       <Flex direction="column" align="center" marginBottom="8">
@@ -50,9 +65,13 @@ export function GiftPage() {
           </Text>
         </Heading>
 
-        <form>
+        <form onSubmit={handleSearchSubmit}>
           <HStack spacing="1">
-            <Input placeholder="Cute panda" />
+            <Input
+              placeholder="Cute panda"
+              value={search}
+              onChange={handleSearchChange}
+            />
             <Button colorScheme="purple" variant="outline" type="submit">
               Search
             </Button>
