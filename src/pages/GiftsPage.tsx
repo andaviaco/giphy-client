@@ -13,40 +13,11 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { Fragment, useEffect, useState } from 'react';
-import { fetchGifs, Gif, GifImages } from '../api/GifAPI';
+import { Gif, GifImages } from '../api/GifAPI';
 import { Modal } from '../components/Modal';
+import { useGifs } from '../hooks/useGifs';
 
 const INITIAL_SEARCH = 'Cute panda';
-
-function useGifs({ pageSize }: any) {
-  const [gifs, setGifs] = useState<Array<Gif>>([]);
-  const [offset, setOffset] = useState(0);
-  const [currentSearch, setCurrentSearch] = useState('');
-
-  function searchGifs(searchTerm: string) {
-    setCurrentSearch(searchTerm);
-
-    fetchGifs({ q: searchTerm }).then((results) => {
-      setGifs(results);
-    });
-  }
-
-  function loadMore() {
-    setOffset((offset) => offset + pageSize);
-
-    const query = currentSearch || INITIAL_SEARCH;
-
-    fetchGifs({ q: query, offset: offset }).then((results) => {
-      setGifs([...gifs, ...results]);
-    });
-  }
-
-  return {
-    gifs,
-    searchGifs,
-    loadMore,
-  };
-}
 
 export function GiftPage() {
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
