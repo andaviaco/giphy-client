@@ -18,17 +18,44 @@ import { Modal } from '../components/Modal';
 
 const INITIAL_SEARCH = 'Cute panda';
 
-export function GiftPage() {
+function useGifs({ pageSize }: any) {
   const [gifs, setGifs] = useState<Array<Gif>>([]);
+  const [offset, setOffset] = useState(0);
+  const [currentSearch, setCurrentSearch] = useState('');
+
+  function searchGifs(searchTerm: string) {
+    setCurrentSearch(searchTerm);
+
+    fetchGifs({ q: searchTerm }).then((results) => {
+      setGifs(results);
+    });
+  }
+
+  function loadMore() {
+    setOffset((offset) => offset + pageSize);
+
+    const query = currentSearch || INITIAL_SEARCH;
+
+    fetchGifs({ q: query, offset: offset }).then((results) => {
+      setGifs([...gifs, ...results]);
+    });
+  }
+
+  return {
+    gifs,
+    searchGifs,
+    loadMore,
+  };
+}
+
+export function GiftPage() {
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [offset, setOffset] = useState(0);
+  const { gifs, searchGifs, loadMore } = useGifs({ pageSize: 10 });
 
   useEffect(() => {
-    fetchGifs({ q: INITIAL_SEARCH }).then((results) => {
-      setGifs(results);
-    });
+    searchGifs(INITIAL_SEARCH);
   }, []);
 
   function handleGifClick(gifInfo: any) {
@@ -49,19 +76,11 @@ export function GiftPage() {
   function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    fetchGifs({ q: search }).then((results) => {
-      setGifs(results);
-    });
+    searchGifs(search);
   }
 
   function handleLoadMore() {
-    setOffset((offset) => offset + 10);
-
-    const query = search || INITIAL_SEARCH;
-
-    fetchGifs({ q: query, offset: offset }).then((results) => {
-      setGifs([...gifs, ...results]);
-    });
+    loadMore();
   }
 
   return (
