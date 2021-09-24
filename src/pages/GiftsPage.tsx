@@ -16,19 +16,18 @@ import { Fragment, useEffect, useState } from 'react';
 import { fetchGifs, Gif, GifImages } from '../api/GifAPI';
 import { Modal } from '../components/Modal';
 
+const INITIAL_SEARCH = 'Cute panda';
+
 export function GiftPage() {
   const [gifs, setGifs] = useState<Array<Gif>>([]);
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    fetchGifs({ q: 'cute panda' }).then((results) => {
+    fetchGifs({ q: INITIAL_SEARCH }).then((results) => {
       setGifs(results);
-      console.log(
-        '🚀 ~ file: GiftsPage.tsx ~ line 19 ~ fetchGifs ~ results',
-        results,
-      );
     });
   }, []);
 
@@ -55,6 +54,16 @@ export function GiftPage() {
     });
   }
 
+  function handleLoadMore() {
+    setOffset((offset) => offset + 10);
+
+    const query = search || INITIAL_SEARCH;
+
+    fetchGifs({ q: query, offset: offset }).then((results) => {
+      setGifs([...gifs, ...results]);
+    });
+  }
+
   return (
     <Container width="100%" maxWidth="1200px" padding="0 4" alignItems="center">
       <Flex direction="column" align="center" marginBottom="8">
@@ -68,7 +77,7 @@ export function GiftPage() {
         <form onSubmit={handleSearchSubmit}>
           <HStack spacing="1">
             <Input
-              placeholder="Cute panda"
+              placeholder={INITIAL_SEARCH}
               value={search}
               onChange={handleSearchChange}
             />
@@ -97,6 +106,13 @@ export function GiftPage() {
           </Box>
         ))}
       </SimpleGrid>
+
+      <Flex justify="center">
+        {/* TODO: show spinner while loading */}
+        <Button variant="outline" onClick={handleLoadMore}>
+          Load More
+        </Button>
+      </Flex>
 
       <Modal
         isOpen={isModalOpen}

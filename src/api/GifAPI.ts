@@ -2,10 +2,6 @@
 const GIFS_API_URL = process.env.REACT_APP_GIFS_API_URL;
 const GIFS_API_KEY = process.env.REACT_APP_GIFS_API_KEY;
 
-interface FetchGifsParams {
-  q?: string;
-}
-
 export type GifImage = {
   url: string;
   webp: string;
@@ -26,12 +22,20 @@ export type Gif = {
   images: GifImages;
 };
 
+interface FetchGifsParams {
+  q?: string;
+  offset?: number;
+}
+
 export async function fetchGifs(
-  params: FetchGifsParams = {},
+  params: FetchGifsParams = {
+    offset: 0,
+  },
 ): Promise<Array<Gif>> {
   const urlParams = new URLSearchParams({
     api_key: GIFS_API_KEY,
     limit: 10,
+    offset: params.offset,
     ...(params as any),
   });
   const request = new Request(
