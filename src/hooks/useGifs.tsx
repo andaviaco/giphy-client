@@ -16,11 +16,11 @@ export function useGifs({ initialSearch, pageSize }: any) {
   useEffect(() => {
     setStatus(UseGifsStatus.Loading);
 
-    fetchGifs({ q: currentSearch, offset: offset }).then((results) => {
+    fetchGifs({ q: currentSearch, offset, limit: pageSize }).then((results) => {
       setGifs((gifs) => [...gifs, ...results]);
       setStatus(UseGifsStatus.Done);
     });
-  }, [currentSearch, offset]);
+  }, [currentSearch, offset, pageSize]);
 
   function searchGifs(searchTerm: string) {
     if (searchTerm !== currentSearch) {

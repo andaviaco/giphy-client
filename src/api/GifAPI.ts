@@ -27,16 +27,18 @@ export type Gif = {
 interface FetchGifsParams {
   q?: string;
   offset?: number;
+  limit?: number;
 }
 
 export async function fetchGifs(
   params: FetchGifsParams = {
     offset: 0,
+    limit: 10,
   },
 ): Promise<Array<Gif>> {
   const urlParams = new URLSearchParams({
     api_key: GIFS_API_KEY,
-    limit: 10,
+    limit: params.limit,
     offset: params.offset,
     ...(params as any),
   });
