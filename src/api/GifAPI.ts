@@ -1,4 +1,5 @@
-// TODO: get value from env
+import { httpRequest } from './util';
+
 const GIFS_API_URL = process.env.REACT_APP_GIFS_API_URL;
 const GIFS_API_KEY = process.env.REACT_APP_GIFS_API_KEY;
 
@@ -30,6 +31,12 @@ interface FetchGifsParams {
   limit?: number;
 }
 
+interface GiphySearch {
+  data: Array<Gif>;
+  pagination: unknown;
+  meta: unknown;
+}
+
 export async function fetchGifs(
   params: FetchGifsParams = {
     offset: 0,
@@ -46,9 +53,7 @@ export async function fetchGifs(
     `${GIFS_API_URL}/gifs/search?${urlParams.toString()}`,
   );
 
-  const result = await fetch(request);
+  const results = await httpRequest<GiphySearch>(request);
 
-  const { data } = await result.json();
-
-  return data;
+  return results.data;
 }
