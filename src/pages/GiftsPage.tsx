@@ -12,7 +12,7 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Gif, GifImages } from '../api/GifAPI';
 import { Modal } from '../components/Modal';
 import { useGifs } from '../hooks/useGifs';
@@ -23,11 +23,10 @@ export function GiftPage() {
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const { gifs, searchGifs, loadMore } = useGifs({ pageSize: 10 });
-
-  useEffect(() => {
-    searchGifs(INITIAL_SEARCH);
-  }, []);
+  const { gifs, status, searchGifs, loadMore } = useGifs({
+    initialSearch: INITIAL_SEARCH,
+    pageSize: 10,
+  });
 
   function handleGifClick(gifInfo: any) {
     setIsModalOpen(true);
