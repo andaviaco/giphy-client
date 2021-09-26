@@ -17,7 +17,7 @@ import { GifModal } from '../components/GifModal';
 import { useGifs, UseGifsStatus } from '../hooks/useGifs';
 
 const INITIAL_SEARCH = 'Cute panda';
-const PAGE_SIZE = 18;
+const PAGE_SIZE = 15;
 
 export function GiftPage() {
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
