@@ -9,12 +9,10 @@ import {
   Input,
   Text,
   SimpleGrid,
-  Grid,
-  GridItem,
 } from '@chakra-ui/react';
-import { Fragment, useState } from 'react';
-import { Gif, GifImages } from '../api/GifAPI';
-import { Modal } from '../components/Modal';
+import { useState } from 'react';
+import { Gif } from '../api/GifAPI';
+import { GifModal } from '../components/GifModal';
 import { useGifs, UseGifsStatus } from '../hooks/useGifs';
 
 const INITIAL_SEARCH = 'Cute panda';
@@ -117,69 +115,11 @@ export function GiftPage() {
         </Button>
       </Flex>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        title={selectedGif.title}
-      >
-        <Container align="center" marginBottom="6">
-          <picture>
-            <source
-              type="image/webp"
-              srcSet={selectedGif?.images?.original.webp}
-            />
-            <source
-              type="video/mp4"
-              srcSet={selectedGif?.images?.original.mp4}
-            />
-            <img src={selectedGif?.images?.original.url} alt="" />
-          </picture>
-        </Container>
-        <Container>
-          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-            {/* TODO: memoize array? */}
-            {[
-              'fixed_height',
-              'fixed_height_small',
-              'fixed_width',
-              'fixed_width_small',
-            ].map((renditionType: any) => (
-              <Fragment key={renditionType}>
-                <GridItem colSpan={1}>
-                  <Text as="strong">{renditionType}</Text>
-                </GridItem>
-
-                {/* TODO: set size */}
-                <GridItem colSpan={3}>
-                  <picture>
-                    <source
-                      type="image/webp"
-                      srcSet={
-                        selectedGif?.images?.[renditionType as keyof GifImages]
-                          ?.webp
-                      }
-                    />
-                    <source
-                      type="video/mp4"
-                      srcSet={
-                        selectedGif?.images?.[renditionType as keyof GifImages]
-                          ?.mp4
-                      }
-                    />
-                    <img
-                      src={
-                        selectedGif?.images?.[renditionType as keyof GifImages]
-                          ?.url
-                      }
-                      alt=""
-                    />
-                  </picture>
-                </GridItem>
-              </Fragment>
-            ))}
-          </Grid>
-        </Container>
-      </Modal>
+      <GifModal
+        gif={selectedGif}
+        isModalOpen={isModalOpen}
+        onModalClose={handleModalClose}
+      />
     </Container>
   );
 }
