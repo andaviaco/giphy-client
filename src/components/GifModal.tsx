@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { Container, Grid, GridItem, Text } from '@chakra-ui/react';
 
 import { Modal } from './Modal';
@@ -12,6 +12,13 @@ interface GifModalProps {
 }
 
 export function GifModal({ gif, isModalOpen, onModalClose }: GifModalProps) {
+  const renditionTypes: Array<keyof GifImages> = [
+    'fixed_height',
+    'fixed_width',
+    'fixed_height_small',
+    'fixed_width_small',
+  ];
+
   return (
     <Modal isOpen={isModalOpen} onClose={onModalClose} title={gif.title}>
       <Container align="center" marginBottom="8">
@@ -23,13 +30,7 @@ export function GifModal({ gif, isModalOpen, onModalClose }: GifModalProps) {
       </Container>
       <Container>
         <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-          {/* TODO: memoize array? */}
-          {[
-            'fixed_height',
-            'fixed_height_small',
-            'fixed_width',
-            'fixed_width_small',
-          ].map((renditionType: any) => (
+          {renditionTypes.map((renditionType) => (
             <Fragment key={renditionType}>
               <GridItem colSpan={1}>
                 <Text as="strong">{renditionType}</Text>
@@ -40,20 +41,13 @@ export function GifModal({ gif, isModalOpen, onModalClose }: GifModalProps) {
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet={
-                      gif?.images?.[renditionType as keyof GifImages]?.webp
-                    }
+                    srcSet={gif?.images?.[renditionType]?.webp}
                   />
                   <source
                     type="video/mp4"
-                    srcSet={
-                      gif?.images?.[renditionType as keyof GifImages]?.mp4
-                    }
+                    srcSet={gif?.images?.[renditionType]?.mp4}
                   />
-                  <img
-                    src={gif?.images?.[renditionType as keyof GifImages]?.url}
-                    alt=""
-                  />
+                  <img src={gif?.images?.[renditionType]?.url} alt="" />
                 </picture>
               </GridItem>
             </Fragment>

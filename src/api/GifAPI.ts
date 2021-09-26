@@ -14,6 +14,8 @@ export type GifImages = {
   original: GifImage;
   fixed_height: GifImage;
   fixed_width: GifImage;
+  fixed_height_small: GifImage;
+  fixed_width_small: GifImage;
 };
 
 export type Gif = {
