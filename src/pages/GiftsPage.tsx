@@ -15,7 +15,7 @@ import {
 import { Fragment, useState } from 'react';
 import { Gif, GifImages } from '../api/GifAPI';
 import { Modal } from '../components/Modal';
-import { useGifs } from '../hooks/useGifs';
+import { useGifs, UseGifsStatus } from '../hooks/useGifs';
 
 const INITIAL_SEARCH = 'Cute panda';
 
@@ -70,7 +70,12 @@ export function GiftPage() {
               value={search}
               onChange={handleSearchChange}
             />
-            <Button colorScheme="purple" variant="outline" type="submit">
+            <Button
+              colorScheme="purple"
+              variant="outline"
+              type="submit"
+              isLoading={status === UseGifsStatus.Loading}
+            >
               Search
             </Button>
           </HStack>
@@ -97,8 +102,11 @@ export function GiftPage() {
       </SimpleGrid>
 
       <Flex justify="center">
-        {/* TODO: show spinner while loading */}
-        <Button variant="outline" onClick={handleLoadMore}>
+        <Button
+          variant="outline"
+          onClick={handleLoadMore}
+          isLoading={status === UseGifsStatus.Loading}
+        >
           Load More
         </Button>
       </Flex>
