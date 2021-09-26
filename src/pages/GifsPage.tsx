@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
   Heading,
@@ -81,26 +82,34 @@ export function GiftPage() {
         </form>
       </Flex>
 
+      {/* TODO: create error boundary */}
       {status === UseGifsStatus.Done && gifs.length === 0 ? (
         <Flex justify="center" marginBottom="4">
           <Text>No gifs found for your search.</Text>
         </Flex>
       ) : (
-        <SimpleGrid minChildWidth="100px" spacing="8" marginBottom="4">
+        <SimpleGrid
+          as="section"
+          minChildWidth="100px"
+          spacing="8"
+          marginBottom="4"
+        >
           {gifs.map((gif) => (
-            <Box
-              key={gif.id}
-              bg="purple.600"
-              align="center"
-              onClick={() => handleGifClick(gif)}
-            >
-              {/* TODO: Set fallback */}
-              <Image
-                boxSize="100px"
-                objectFit="cover"
-                src={gif.images.fixed_height_still.url}
-                alt="TODO"
-              />
+            <Box key={gif.id} as="article" bg="purple.600">
+              <Center
+                as="button"
+                width="100%"
+                title={`View ${gif.title} detail`}
+                onClick={() => handleGifClick(gif)}
+              >
+                {/* TODO: Set fallback */}
+                <Image
+                  boxSize="100px"
+                  objectFit="cover"
+                  src={gif.images.fixed_height_still.url}
+                  alt={gif.title}
+                />
+              </Center>
             </Box>
           ))}
         </SimpleGrid>
