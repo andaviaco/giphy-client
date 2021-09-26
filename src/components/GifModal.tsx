@@ -3,7 +3,7 @@ import { Container, Grid, GridItem, Text } from '@chakra-ui/react';
 
 import { Modal } from './Modal';
 
-import { Gif, GifImages, GifImage } from '../api/GifAPI';
+import { Gif, GifImages, GifRendition } from '../api/GifAPI';
 
 interface GifModalProps {
   gif: Gif;
@@ -12,7 +12,7 @@ interface GifModalProps {
 }
 
 interface GifImageProps {
-  rendition: Partial<GifImage>;
+  rendition: Partial<GifRendition>;
 }
 
 function GifPicture({ rendition }: GifImageProps) {

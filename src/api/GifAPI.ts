@@ -2,20 +2,20 @@
 const GIFS_API_URL = process.env.REACT_APP_GIFS_API_URL;
 const GIFS_API_KEY = process.env.REACT_APP_GIFS_API_KEY;
 
-export type GifImage = {
+export type GifRendition = {
   url: string;
   webp: string;
   mp4: string;
 };
 
 export type GifImages = {
-  downsized_still: GifImage;
-  fixed_height_still: GifImage;
-  original: GifImage;
-  fixed_height: GifImage;
-  fixed_width: GifImage;
-  fixed_height_small: GifImage;
-  fixed_width_small: GifImage;
+  downsized_still: GifRendition;
+  fixed_height_still: GifRendition;
+  original: GifRendition;
+  fixed_height: GifRendition;
+  fixed_width: GifRendition;
+  fixed_height_small: GifRendition;
+  fixed_width_small: GifRendition;
 };
 
 export type Gif = {
