@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Flex } from '@chakra-ui/react';
-import { GiftPage } from './pages/GiftsPage';
+import { GiftPage } from './pages/GifsPage';
 
 function App() {
   return (
