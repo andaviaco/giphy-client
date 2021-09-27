@@ -10,6 +10,7 @@ import {
   Input,
   Text,
   SimpleGrid,
+  Skeleton,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Gif } from '../api/GifAPI';
@@ -104,13 +105,14 @@ export function GiftPage() {
                 title={`View ${gif.title} detail`}
                 onClick={() => handleGifClick(gif)}
               >
-                {/* TODO: Set fallback */}
                 <Image
                   boxSize="200px"
                   objectFit="cover"
+                  loading="lazy"
                   name={gif.title}
                   src={gif.images.fixed_height_still.url}
                   alt={gif.title}
+                  fallback={<Skeleton height="200px" width="200px" />}
                 />
               </Center>
             </Box>
