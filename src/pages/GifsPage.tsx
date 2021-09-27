@@ -66,6 +66,7 @@ export function GiftPage() {
         <form onSubmit={handleSearchSubmit}>
           <HStack spacing="1">
             <Input
+              role="search"
               placeholder={INITIAL_SEARCH}
               value={search}
               onChange={handleSearchChange}
@@ -73,6 +74,7 @@ export function GiftPage() {
             <Button
               colorScheme="purple"
               variant="outline"
+              name="Search"
               type="submit"
               isLoading={status === UseGifsStatus.Loading}
             >
@@ -95,7 +97,7 @@ export function GiftPage() {
           marginBottom="4"
         >
           {gifs.map((gif) => (
-            <Box key={gif.id} as="article" bg="purple.600">
+            <Box key={gif.id} as="article">
               <Center
                 as="button"
                 width="100%"
@@ -106,6 +108,7 @@ export function GiftPage() {
                 <Image
                   boxSize="200px"
                   objectFit="cover"
+                  name={gif.title}
                   src={gif.images.fixed_height_still.url}
                   alt={gif.title}
                 />
