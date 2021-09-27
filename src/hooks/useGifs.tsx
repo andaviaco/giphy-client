@@ -7,7 +7,12 @@ export enum UseGifsStatus {
   Done = 'Done',
 }
 
-export function useGifs({ initialSearch, pageSize }: any) {
+interface UseGifsParams {
+  initialSearch?: string;
+  pageSize?: number;
+}
+
+export function useGifs({ initialSearch, pageSize = 10 }: UseGifsParams) {
   const [gifs, setGifs] = useState<Array<Gif>>([]);
   const [offset, setOffset] = useState(0);
   const [currentSearch, setCurrentSearch] = useState(initialSearch);
