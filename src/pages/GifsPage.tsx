@@ -90,7 +90,7 @@ export function GiftPage() {
       ) : (
         <SimpleGrid
           as="section"
-          minChildWidth="100px"
+          minChildWidth="200px"
           spacing="8"
           marginBottom="4"
         >
@@ -104,7 +104,7 @@ export function GiftPage() {
               >
                 {/* TODO: Set fallback */}
                 <Image
-                  boxSize="100px"
+                  boxSize="200px"
                   objectFit="cover"
                   src={gif.images.fixed_height_still.url}
                   alt={gif.title}
