@@ -28,12 +28,51 @@ test('gifs search and display results', async () => {
   expect(submitButton).toBeDisabled();
   expect(submitButton).toHaveAttribute('data-loading');
 
-  await waitFor(() => {
-    screen.getAllByRole('article');
-  });
+  await waitFor(() => screen.getAllByRole('article'));
 
   expect(submitButton).toBeEnabled();
   expect(screen.getAllByRole('article').length).toBeGreaterThan(0);
   expect(screen.getAllByRole('article').length).toBeLessThanOrEqual(15);
 });
-// test('loads more gifs', async () => {});
+
+test('displays a modal with details', async () => {
+  render(<GiftPage />);
+
+  await waitFor(() => screen.getAllByRole('article'));
+  await waitFor(() => screen.getByTitle('View panda playing GIF detail'));
+
+  userEvent.click(screen.getByTitle('View panda playing GIF detail'));
+
+  const closeModalButton = screen.getAllByRole('button', { name: /close/i });
+
+  await waitFor(() => screen.getByRole('dialog'));
+
+  expect(screen.getByRole('dialog')).toBeInTheDocument();
+  expect(screen.getByText('panda playing GIF')).toBeInTheDocument();
+
+  userEvent.click(closeModalButton[0]);
+
+  await waitFor(() =>
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+  );
+});
+
+test('loads more gifs', async () => {
+  render(<GiftPage />);
+
+  await waitFor(() => screen.getAllByRole('article'));
+  await waitFor(() => screen.getByTitle('View panda playing GIF detail'));
+
+  const loadMoreButton = screen.getByRole('button', { name: /load more/i });
+
+  userEvent.click(loadMoreButton);
+
+  expect(loadMoreButton).toBeDisabled();
+  expect(loadMoreButton).toHaveAttribute('data-loading');
+
+  await waitFor(() =>
+    expect(loadMoreButton).not.toHaveAttribute('data-loading'),
+  );
+
+  expect(screen.getAllByRole('article').length).toEqual(30);
+});
