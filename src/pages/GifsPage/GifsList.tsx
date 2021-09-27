@@ -21,7 +21,6 @@ export function GifsList({ gifs, onGifClick }: GifsListProps) {
             <Image
               boxSize="200px"
               objectFit="cover"
-              loading="lazy"
               name={gif.title}
               src={gif.images.fixed_height_still.url}
               alt={gif.title}
