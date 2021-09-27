@@ -5,6 +5,7 @@ export enum UseGifsStatus {
   Idle = 'Idle',
   Loading = 'Loading',
   Done = 'Done',
+  Error = 'Error',
 }
 
 interface UseGifsParams {
@@ -21,10 +22,15 @@ export function useGifs({ initialSearch, pageSize = 10 }: UseGifsParams) {
   useEffect(() => {
     setStatus(UseGifsStatus.Loading);
 
-    fetchGifs({ q: currentSearch, offset, limit: pageSize }).then((results) => {
-      setGifs((gifs) => [...gifs, ...results]);
-      setStatus(UseGifsStatus.Done);
-    });
+    fetchGifs({ q: currentSearch, offset, limit: pageSize })
+      .then((results) => {
+        setGifs((gifs) => [...gifs, ...results]);
+        setStatus(UseGifsStatus.Done);
+      })
+      .catch((error) => {
+        // TODO: handle error
+        setStatus(UseGifsStatus.Error);
+      });
   }, [currentSearch, offset, pageSize]);
 
   function searchGifs(searchTerm: string) {
