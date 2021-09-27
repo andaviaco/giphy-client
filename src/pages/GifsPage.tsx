@@ -5,9 +5,7 @@ import {
   Container,
   Flex,
   Heading,
-  HStack,
   Image,
-  Input,
   Text,
   SimpleGrid,
   Skeleton,
@@ -16,6 +14,7 @@ import { useState } from 'react';
 import { Gif } from '../api/GifAPI';
 import { GifModal } from '../components/GifModal';
 import { useGifs, UseGifsStatus } from '../hooks/useGifs';
+import { GifSearchBox } from './GifSearchBox';
 
 const INITIAL_SEARCH = 'Cute panda';
 const PAGE_SIZE = 15;
@@ -23,7 +22,6 @@ const PAGE_SIZE = 15;
 export function GiftPage() {
   const [selectedGif, setSelectedGif] = useState<Gif>({} as any);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState('');
   const { gifs, status, searchGifs, loadMore } = useGifs({
     initialSearch: INITIAL_SEARCH,
     pageSize: PAGE_SIZE,
@@ -38,18 +36,9 @@ export function GiftPage() {
     setIsModalOpen(false);
   }
 
-  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-
-    setSearch(value);
-  }
-
-  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  function handleSearchSubmit(search: string) {
     searchGifs(search);
   }
-
   function handleLoadMore() {
     loadMore();
   }
@@ -64,25 +53,11 @@ export function GiftPage() {
           </Text>
         </Heading>
 
-        <form onSubmit={handleSearchSubmit}>
-          <HStack spacing="1">
-            <Input
-              role="search"
-              placeholder={INITIAL_SEARCH}
-              value={search}
-              onChange={handleSearchChange}
-            />
-            <Button
-              colorScheme="purple"
-              variant="outline"
-              name="Search"
-              type="submit"
-              isLoading={status === UseGifsStatus.Loading}
-            >
-              Search
-            </Button>
-          </HStack>
-        </form>
+        <GifSearchBox
+          placeholder={INITIAL_SEARCH}
+          isLoading={status === UseGifsStatus.Loading}
+          onSubmit={handleSearchSubmit}
+        />
       </Flex>
 
       {/* TODO: create error boundary */}
