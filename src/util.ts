@@ -1,3 +1,3 @@
 export function formatRenditionName(name: string): string {
-  return name.replaceAll('_', ' ');
+  return name.replace(/_/g, ' ');
 }
