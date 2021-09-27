@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { fetchGifs, Gif } from '../api/GifAPI';
+import { fetchGifs } from '../api/GifAPI';
+import { Gif } from '../types/Gif';
 
 export enum UseGifsStatus {
   Idle = 'Idle',

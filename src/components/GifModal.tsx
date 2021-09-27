@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { Container, Grid, GridItem, Text } from '@chakra-ui/react';
 
 import { Modal } from './Modal';
-import { Gif, GifImages, GifRendition } from '../api/GifAPI';
 import { formatRenditionName } from '../util';
+import { Gif, GifImages, GifRendition } from '../types/Gif';
 
 interface GifModalProps {
   gif: Gif;
