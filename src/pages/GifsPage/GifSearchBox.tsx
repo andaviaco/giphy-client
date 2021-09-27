@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { Button, HStack, Input } from '@chakra-ui/react';
 
-export function GifSearchBox({ placeholder, isLoading, onSubmit }: any) {
+interface GifSearchBoxProps {
+  placeholder: string;
+  isLoading: boolean;
+  onSubmit: (value: string) => void;
+}
+
+export function GifSearchBox({
+  placeholder,
+  isLoading,
+  onSubmit,
+}: GifSearchBoxProps) {
   const [search, setSearch] = useState('');
 
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
