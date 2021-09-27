@@ -3,6 +3,8 @@
 ## About the project
 This project is a simple application consuming the Giphy API. It displays a list of Gifs with a search input. Select a gif to see some of the available renditions.
 
+![screenshot](https://user-images.githubusercontent.com/3054604/134857179-b53adb44-9f93-44d3-b51a-072426a16e64.png)
+
 The project was initialized using **create-react-app** with the **typescript** template.
 
 ### Extra Dependencies
@@ -22,6 +24,7 @@ With enough time, I would work on some additional improvements:
 - Unit testing for custom hooks.
 - Handling errors with an error boundary.
 - A better UI. There are places where the UI could improve.
+- Deploy to AWS.
 
 ## Setup
 
