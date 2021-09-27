@@ -1,20 +1,10 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  SimpleGrid,
-  Skeleton,
-} from '@chakra-ui/react';
+import { Button, Container, Flex, Heading, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Gif } from '../api/GifAPI';
 import { GifModal } from '../components/GifModal';
 import { useGifs, UseGifsStatus } from '../hooks/useGifs';
 import { GifSearchBox } from './GifSearchBox';
+import { GifsList } from './GifsList';
 
 const INITIAL_SEARCH = 'Cute panda';
 const PAGE_SIZE = 15;
@@ -28,8 +18,8 @@ export function GiftPage() {
   });
 
   function handleGifClick(gifInfo: any) {
-    setIsModalOpen(true);
     setSelectedGif(gifInfo);
+    setIsModalOpen(true);
   }
 
   function handleModalClose() {
@@ -66,33 +56,7 @@ export function GiftPage() {
           <Text>No gifs found for your search.</Text>
         </Flex>
       ) : (
-        <SimpleGrid
-          as="section"
-          minChildWidth="200px"
-          spacing="8"
-          marginBottom="4"
-        >
-          {gifs.map((gif) => (
-            <Box key={gif.id} as="article">
-              <Center
-                as="button"
-                width="100%"
-                title={`View ${gif.title} detail`}
-                onClick={() => handleGifClick(gif)}
-              >
-                <Image
-                  boxSize="200px"
-                  objectFit="cover"
-                  loading="lazy"
-                  name={gif.title}
-                  src={gif.images.fixed_height_still.url}
-                  alt={gif.title}
-                  fallback={<Skeleton height="200px" width="200px" />}
-                />
-              </Center>
-            </Box>
-          ))}
-        </SimpleGrid>
+        <GifsList gifs={gifs} onGifClick={handleGifClick} />
       )}
 
       <Flex justify="center">
