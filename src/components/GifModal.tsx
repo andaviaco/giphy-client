@@ -23,7 +23,7 @@ function GifPicture({ rendition }: GifImageProps) {
           {rendition.webp ? (
             <source type="image/webp" srcSet={rendition.webp} />
           ) : null}
-          <img src={rendition.url} alt="" />
+          <img src={rendition.url} alt="" loading="lazy" />
         </picture>
       ) : (
         <video autoPlay loop>
@@ -53,7 +53,7 @@ export function GifModal({ gif, isModalOpen, onModalClose }: GifModalProps) {
         <GifPicture rendition={gif?.images?.original} />
       </Container>
       <Container>
-        <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+        <Grid templateColumns="repeat(4, 1fr)" gap={8}>
           {renditionTypes.map((renditionType) => (
             <Fragment key={renditionType}>
               <GridItem colSpan={1}>
