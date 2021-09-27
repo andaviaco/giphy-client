@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Simple Giphy App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About the project
+This project is a simple application consuming the Giphy API. It displays a list of Gifs with a search input. Select a gif to see some of the available renditions.
 
-## Available Scripts
+The project was initialized using **create-react-app** with the **typescript** template.
 
-In the project directory, you can run:
+### Extra Dependencies
+**UI Library**.
+I'm using [Chakra UI](https://github.com/chakra-ui/chakra-ui) as my component library. Its simplicity and flexibility have helped me develop the UI in a short time. I especially like the focus the put into making accessible components
 
-### `npm start`
+**Prettier**.
+It is nice to have a code formatting tool for a better developer experience. ESLint, for code quality, is already included thanks to create-react-app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Mock Service Worker**.
+I added MSW to mock the Giphy API response for the integration tests.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Time invested and extra notes
+According to my time tracker ([Toggl](https://toggl.com/track/)), I spent around 11 hours on this project.
 
-### `npm test`
+With enough time, I would work on some additional improvements:
+- Unit testing for custom hooks.
+- Handling errors with an error boundary.
+- A better UI. There are places where the UI could improve.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup
 
-### `npm run build`
+**Install dependencies**
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Set environment variables**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Create your `.env` file using `.env-example` as example.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The following variables have to be set:
+- `REACT_APP_GIFS_API_URL`
+- `REACT_APP_GIFS_API_KEY`
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Run the app**
+```
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Run tests
+It is necessary to have the right environment variables to run the tests locally. Create a file called `.env.test.local` to set them.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Run tests**
+```
+npm test
+```
