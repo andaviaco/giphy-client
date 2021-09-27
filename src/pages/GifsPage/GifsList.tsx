@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Center, Image, SimpleGrid, Skeleton } from '@chakra-ui/react';
-import { Gif } from '../api/GifAPI';
+import { Gif } from '../../api/GifAPI';
 
 interface GifsListProps {
   gifs: Array<Gif>;

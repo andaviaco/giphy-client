@@ -1,8 +1,8 @@
 import { Button, Container, Flex, Heading, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Gif } from '../api/GifAPI';
-import { GifModal } from '../components/GifModal';
-import { useGifs, UseGifsStatus } from '../hooks/useGifs';
+import { Gif } from '../../api/GifAPI';
+import { GifModal } from '../../components/GifModal';
+import { useGifs, UseGifsStatus } from '../../hooks/useGifs';
 import { GifSearchBox } from './GifSearchBox';
 import { GifsList } from './GifsList';
 
